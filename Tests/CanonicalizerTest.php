@@ -49,15 +49,21 @@ class CanonicalizerTest extends TestCase
             'a-quick-brown-fox-jumps-over-the-lazy-dog',
             $this->getCanonicalizer()->canonicalize('A quick brown fox jumps over the lazy dog')
         );
-        $this->assertEquals(
-            'falsches-uben-von-xylophonmusik-qualt-jeden-grosseren-zwerg',
-            $this->getCanonicalizer()->canonicalize('Falsches Üben von Xylophonmusik quält jeden größeren Zwerg')
+        $this->assertContains(
+            $this->getCanonicalizer()->canonicalize('Falsches Üben von Xylophonmusik quält jeden größeren Zwerg'),
+            [
+                'falsches-uben-von-xylophonmusik-qualt-jeden-grosseren-zwerg',
+                'falsches-uben-von-xylophonmusik-qualt-jeden-groseren-zwerg',
+            ]
         );
-        $this->assertEquals(
-            'le-coeur-decu-mais-lame-plutot-naive-louys-reva-de-crapauter-en-canoe-au-dela-des-iles-pres-du-malstrom-ou-brulent-les-novae',
+        $this->assertContains(
             $this->getCanonicalizer()->canonicalize(
                 'Le cœur déçu mais l\'âme plutôt naïve, Louÿs rêva de crapaüter en canoë au delà des îles, près du mälström où brûlent les novæ.'
-            )
+            ),
+            [
+                'le-coeur-decu-mais-l-ame-plutot-naive-louys-reva-de-crapauter-en-canoe-au-dela-des-iles-pres-du-malstrom-ou-brulent-les-novae',
+                'le-coeur-decu-mais-lame-plutot-naive-louys-reva-de-crapauter-en-canoe-au-dela-des-iles-pres-du-malstrom-ou-brulent-les-novae',
+            ]
         );
         $this->assertEquals(
             'krdel-stastnych-datlov-uci-pri-usti-vahu-mlkveho-kona-obhryzat-koru-a-zrat-cerstve-maso',
