@@ -1,0 +1,40 @@
+{
+    "name": "wernerdweight/canonicalizer",
+    "type": "library",
+    "description": "Simple PHP string canonicalizer",
+    "keywords": [
+        "random",
+        "token",
+        "generator"
+    ],
+    "homepage": "https://github.com/wernerdweight/Canonicalizer",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Werner Dweight Solutions",
+            "email": "info@wds.blue"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev": {
+        "wernerdweight/cs": "^1.1.1"
+    },
+    "suggest": {},
+    "autoload": {
+        "psr-0": {
+            "WernerDweight\\Canonicalizer\\": ""
+        }
+    },
+    "target-dir": "WernerDweight/Canonicalizer",
+    "scripts": {
+        "fix": "ecs check ./Canonicalizer.php --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
+        "phpstan": "phpstan analyse ./Canonicalizer.php --level max",
+        "phpmd": "phpmd ./Canonicalizer.php text vendor/wernerdweight/cs/WernerDweight/CS/phpmd.xml",
+        "ecs": "ecs check ./Canonicalizer.php --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml",
+        "ecs-fix": "ecs check ./Canonicalizer.php --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
+        "phpunit": "phpunit",
+        "victor": "victor"
+    }
+}
