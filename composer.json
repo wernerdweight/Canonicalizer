@@ -29,11 +29,11 @@
     },
     "target-dir": "WernerDweight/Canonicalizer",
     "scripts": {
-        "fix": "ecs check ./Canonicalizer.php --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
-        "phpstan": "phpstan analyse ./Canonicalizer.php --level max",
+        "fix": "ecs check ./Canonicalizer.php ./tests/ --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
+        "phpstan": "phpstan analyse ./Canonicalizer.php ./tests/ --level max",
         "phpmd": "phpmd ./Canonicalizer.php text vendor/wernerdweight/cs/WernerDweight/CS/phpmd.xml",
-        "ecs": "ecs check ./Canonicalizer.php --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml",
-        "ecs-fix": "ecs check ./Canonicalizer.php --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
+        "ecs": "ecs check ./Canonicalizer.php ./tests/ --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml",
+        "ecs-fix": "ecs check ./Canonicalizer.php ./tests/ --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
         "phpunit": "phpunit",
         "victor": "victor"
     }

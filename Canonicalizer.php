@@ -69,6 +69,8 @@ class Canonicalizer
         }
         /** @var string $string */
         $string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        // get rid of some special chars (again, since iconv implementations other than glibc might put some back in)
+        $string = str_replace(self::SPECIAL_CHAR_BLACKLIST, '', $string);
         return $string;
     }
 
