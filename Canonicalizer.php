@@ -32,18 +32,32 @@ class Canonicalizer
         "\xfa\xfb\xfc\xfd\xfe\x96",
         'ALLSSSSTZZZallssstzzzRAAAALCCCEEEEIIDDNNOOOOxRUUUUYTsraaaalccceeeeiiddnnooooruuuuyt-',
     ];
+    /** @var string */
+    private const DEFAULT_SEPARATOR = '-';
+    /** @var string */
+    private const DEFAULT_ENDING = '';
 
     /** @var int */
     private $maxLength;
 
+    /** @var null|callable */
+    private $beforeCallback;
+
+    /** @var null|callable */
+    private $afterCallback;
+
     /**
      * Canonicalizer constructor.
      *
-     * @param int $maxLength
+     * @param int           $maxLength
+     * @param callable|null $beforeCallback
+     * @param callable|null $afterCallback
      */
-    public function __construct(int $maxLength)
+    public function __construct(int $maxLength, ?callable $beforeCallback = null, ?callable $afterCallback = null)
     {
         $this->maxLength = $maxLength;
+        $this->beforeCallback = $beforeCallback;
+        $this->afterCallback = $afterCallback;
     }
 
     /**
@@ -77,32 +91,48 @@ class Canonicalizer
     /**
      * @param string $string
      * @param string $ending
+     * @param string $separator
      *
      * @return string
      */
-    private function createEnding(string $string, string $ending): string
+    private function createEnding(string $string, string $ending, string $separator): string
     {
+        $ending = $separator . trim($ending, $separator);
         $maxLength = $this->maxLength - mb_strlen($ending);
         if (mb_strlen($string) > $maxLength) {
-            $string = mb_substr($string, 0, $maxLength);
+            $string = trim(mb_substr($string, 0, $maxLength), $separator);
         }
-        return $string . $ending;
+        return sprintf('%s%s', $string, $ending);
     }
 
     /**
      * @param string $string
      * @param string $ending
+     * @param string $separator
      *
      * @return string
      */
-    public function canonicalize(string $string, string $ending = ''): string
-    {
+    public function canonicalize(
+        string $string,
+        string $ending = self::DEFAULT_ENDING,
+        string $separator = self::DEFAULT_SEPARATOR
+    ): string {
+        if (null !== $this->beforeCallback) {
+            $beforeCallback = $this->beforeCallback;
+            $string = $beforeCallback($string);
+        }
         $string = $this->toAscii($string);
         $string = mb_strtolower($string);
         /** @var string $string */
-        $string = preg_replace('/[^a-z0-9]+/i', '-', $string);
-        $string = trim($string, '-');
-        $string = $this->createEnding($string, $ending);
+        $string = preg_replace('/[^a-z0-9]+/i', $separator, $string);
+        $string = trim($string, $separator);
+        if (self::DEFAULT_ENDING !== $ending) {
+            $string = $this->createEnding($string, $ending, $separator);
+        }
+        if (null !== $this->afterCallback) {
+            $afterCallback = $this->afterCallback;
+            $string = $afterCallback($string);
+        }
         return $string;
     }
 }
