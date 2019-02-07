@@ -222,7 +222,7 @@ class CanonicalizerTest extends TestCase
     }
 
     /**
-     * Test canonicalization.
+     * Test callbacks.
      */
     public function testCallbacks(): void
     {
@@ -277,6 +277,40 @@ class CanonicalizerTest extends TestCase
             $this->getCanonicalizer(255)->canonicalize(
                 'В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!'
             )
+        );
+    }
+
+    /**
+     * Test callback setters.
+     */
+    public function testCallbackSetterss(): void
+    {
+        $canonicalizer = $this->getCanonicalizer(255);
+        $this->assertEquals(
+            'priserne-zlutoucky-kun-upel-dabelske-ody',
+            $canonicalizer->canonicalize('Příšerně žluťoučký kůň úpěl ďábelské ódy')
+        );
+        $canonicalizer->setBeforeCallback(function (string $string): string {
+            return str_replace(['a', 'e'], ['e', 'a'], $string);
+        });
+        $this->assertEquals(
+            'prisarne-zlutoucky-kun-upel-dabalske-ody',
+            $canonicalizer->canonicalize('Příšerně žluťoučký kůň úpěl ďábelské ódy')
+        );
+        $canonicalizer->setAfterCallback('strtoupper');
+        $this->assertEquals(
+            'PRISARNE-ZLUTOUCKY-KUN-UPEL-DABALSKE-ODY',
+            $canonicalizer->canonicalize('Příšerně žluťoučký kůň úpěl ďábelské ódy')
+        );
+        $canonicalizer->setBeforeCallback(null);
+        $this->assertEquals(
+            'PRISERNE-ZLUTOUCKY-KUN-UPEL-DABELSKE-ODY',
+            $canonicalizer->canonicalize('Příšerně žluťoučký kůň úpěl ďábelské ódy')
+        );
+        $canonicalizer->setAfterCallback(null);
+        $this->assertEquals(
+            'priserne-zlutoucky-kun-upel-dabelske-ody',
+            $canonicalizer->canonicalize('Příšerně žluťoučký kůň úpěl ďábelské ódy')
         );
     }
 }

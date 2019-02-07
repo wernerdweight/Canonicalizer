@@ -61,6 +61,28 @@ class Canonicalizer
     }
 
     /**
+     * @param callable|null $beforeCallback
+     *
+     * @return Canonicalizer
+     */
+    public function setBeforeCallback(?callable $beforeCallback): self
+    {
+        $this->beforeCallback = $beforeCallback;
+        return $this;
+    }
+
+    /**
+     * @param callable|null $afterCallback
+     *
+     * @return Canonicalizer
+     */
+    public function setAfterCallback(?callable $afterCallback): self
+    {
+        $this->afterCallback = $afterCallback;
+        return $this;
+    }
+
+    /**
      * @param string $string
      *
      * @return string
