@@ -94,6 +94,12 @@ class CanonicalizerTest extends TestCase
                 'В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!'
             )
         );
+        $this->assertEquals(
+            'el-veloz-murcielago-hindu-comia-feliz-cardillo-y-kiwi-la-ciguena-tocaba-el-saxofon-detras-del-palenque-de-paja',
+            $this->getCanonicalizer(255)->canonicalize(
+                'El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el saxofón detrás del palenque de paja'
+            )
+        );
     }
 
     /**

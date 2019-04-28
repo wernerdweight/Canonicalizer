@@ -6,18 +6,28 @@ namespace WernerDweight\Canonicalizer;
 class Canonicalizer
 {
     /** @var string[][] */
-    private const CYRILIC_TRANSLITERATION_MAP = [
+    private const TRANSLITERATION_MAP = [
         [
+            // cyrilic
             'Щ', 'щ', 'Ё', 'Ж', 'Х', 'Ц', 'Ч', 'Ш', 'Ю', 'я', 'ё', 'ж', 'х', 'ц', 'ч', 'ш', 'ю', 'я', 'А', 'Б', 'В',
             'Г', 'Д', 'Е', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Ь', 'Ы', 'Ъ', 'Э',
             'а', 'б', 'в', 'г', 'д', 'е', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'ь',
             'ы', 'ъ', 'э',
+            // french
+            'Ï', 'ï', 'Ÿ', 'ÿ', 'Ê', 'ê', 'À', 'à', 'È', 'è', 'Ù', 'ù', 'Û', 'û',
+            // spanish
+            'Ñ', 'ñ',
         ],
         [
+            // cyrilic
             'Sc', 'sc', 'Jo', 'Z', 'Ch', 'C', 'C', 'S', 'Ju', 'ja', 'jo', 'z', 'ch', 'c', 'c', 's', 'ju', 'ja', 'A',
             'B', 'V', 'G', 'D', 'E', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', '', 'Y', '',
             'E', 'a', 'b', 'v', 'g', 'd', 'e', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f',
             '', 'y', '', 'e',
+            // french
+            'I', 'i', 'Y', 'y', 'E', 'e', 'A', 'a', 'E', 'e', 'U', 'u', 'U', 'u',
+            //spanish
+            'N', 'n',
         ],
     ];
     /** @var string */
@@ -90,7 +100,7 @@ class Canonicalizer
     private function toAscii(string $string): string
     {
         // transliterate cyrilic and other special chars
-        $string = str_replace(self::CYRILIC_TRANSLITERATION_MAP[0], self::CYRILIC_TRANSLITERATION_MAP[1], $string);
+        $string = str_replace(self::TRANSLITERATION_MAP[0], self::TRANSLITERATION_MAP[1], $string);
         // get rid of some unicode special chars like tabs etc.
         /** @var string $string */
         $string = preg_replace(self::UNICODE_SPECIAL_CHAR_BLACKLIST, '', $string);
