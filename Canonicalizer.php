@@ -47,14 +47,14 @@ class Canonicalizer
     /** @var string */
     private const DEFAULT_ENDING = '';
 
-    /** @var int */
-    private $maxLength;
+    /** @var null|callable */
+    private $afterCallback;
 
     /** @var null|callable */
     private $beforeCallback;
 
-    /** @var null|callable */
-    private $afterCallback;
+    /** @var int */
+    private $maxLength;
 
     /**
      * Canonicalizer constructor.
