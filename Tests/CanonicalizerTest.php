@@ -37,8 +37,7 @@ class CanonicalizerTest extends TestCase
      */
     public function testReturnType(): void
     {
-        $this->assertInternalType(
-            'string',
+        $this->assertIsString(
             $this->getCanonicalizer(255)->canonicalize('Some fancy text with 2 numbers or whatever...')
         );
     }

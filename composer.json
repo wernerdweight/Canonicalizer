@@ -19,7 +19,7 @@
         "php": ">=7.2.0"
     },
     "require-dev": {
-        "wernerdweight/cs": "^1.2.1"
+        "wernerdweight/cs": "^1.4"
     },
     "suggest": {},
     "autoload": {
@@ -29,11 +29,11 @@
     },
     "target-dir": "WernerDweight/Canonicalizer",
     "scripts": {
-        "fix": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
+        "fix": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/src/ecs.yaml --fix",
         "phpstan": "phpstan analyse ./Canonicalizer.php ./Tests/ --level max",
-        "phpmd": "phpmd ./Canonicalizer.php text vendor/wernerdweight/cs/WernerDweight/CS/phpmd.xml",
-        "ecs": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml",
-        "ecs-fix": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/WernerDweight/CS/src/ecs.yaml --fix",
+        "phpmd": "phpmd ./Canonicalizer.php text vendor/wernerdweight/cs/phpmd.xml",
+        "ecs": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/src/ecs.yaml",
+        "ecs-fix": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/src/ecs.yaml --fix",
         "phpunit": "phpunit",
         "victor": "victor"
     }
