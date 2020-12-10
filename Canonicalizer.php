@@ -109,12 +109,12 @@ class Canonicalizer
         // transliterate to ASCII/Win-1250
         if (ICONV_IMPL === 'glibc') {
             /** @var string $string */
-            $string = iconv('UTF-8', 'WINDOWS-1250//TRANSLIT', $string);
+            $string = iconv('UTF-8', 'WINDOWS-1250//TRANSLIT//IGNORE', $string);
             $string = strtr($string, ...self::GLIBC_W1250_CHAR_MAP);
             return $string;
         }
         /** @var string $string */
-        $string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        $string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
         // get rid of some special chars (again, since iconv implementations other than glibc might put some back in)
         $string = str_replace(self::SPECIAL_CHAR_BLACKLIST, '', $string);
         return $string;
