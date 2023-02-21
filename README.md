@@ -3,7 +3,7 @@ Canonicalizer
 
 Simple PHP string canonicalizer
 
-[![Build Status](https://travis-ci.org/wernerdweight/Canonicalizer.svg?branch=master)](https://travis-ci.org/wernerdweight/Canonicalizer)
+[![Build Status](https://app.travis-ci.com/wernerdweight/Canonicalizer.svg?branch=master)](https://app.travis-ci.com/wernerdweight/Canonicalizer)
 [![Latest Stable Version](https://poser.pugx.org/wernerdweight/canonicalizer/v/stable)](https://packagist.org/packages/wernerdweight/canonicalizer)
 [![Total Downloads](https://poser.pugx.org/wernerdweight/canonicalizer/downloads)](https://packagist.org/packages/wernerdweight/canonicalizer)
 [![License](https://poser.pugx.org/wernerdweight/canonicalizer/license)](https://packagist.org/packages/wernerdweight/canonicalizer)
