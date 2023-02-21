@@ -1,0 +1,9 @@
+includes:
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+    - vendor/wernerdweight/cs/src/Rules/phpstan-rules.neon
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#Spread operator is not allowed#'
+            path: 'Canonicalizer.php'

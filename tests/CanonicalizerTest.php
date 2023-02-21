@@ -336,6 +336,10 @@ class CanonicalizerTest extends TestCase
         );
     }
 
+    /**
+     * @param callable(string):string|null $beforeCallback
+     * @param callable(string):string|null $afterCallback
+     */
     protected function getCanonicalizer(
         int $maxLength,
         ?callable $beforeCallback = null,

@@ -65,12 +65,12 @@ class Canonicalizer
     private const DEFAULT_ENDING = '';
 
     /**
-     * @var null|callable
+     * @var null|callable(string):string
      */
     private $afterCallback;
 
     /**
-     * @var null|callable
+     * @var null|callable(string):string
      */
     private $beforeCallback;
 
@@ -79,6 +79,10 @@ class Canonicalizer
      */
     private $maxLength;
 
+    /**
+     * @param callable(string):string|null $beforeCallback
+     * @param callable(string):string|null $afterCallback
+     */
     public function __construct(int $maxLength, ?callable $beforeCallback = null, ?callable $afterCallback = null)
     {
         $this->maxLength = $maxLength;
@@ -86,16 +90,20 @@ class Canonicalizer
         $this->afterCallback = $afterCallback;
     }
 
-    public function setBeforeCallback(?callable $beforeCallback): self
+    /**
+     * @param callable(string):string|null $beforeCallback
+     */
+    public function setBeforeCallback(?callable $beforeCallback): void
     {
         $this->beforeCallback = $beforeCallback;
-        return $this;
     }
 
-    public function setAfterCallback(?callable $afterCallback): self
+    /**
+     * @param callable(string):string|null $afterCallback
+     */
+    public function setAfterCallback(?callable $afterCallback): void
     {
         $this->afterCallback = $afterCallback;
-        return $this;
     }
 
     public function canonicalize(
@@ -110,7 +118,7 @@ class Canonicalizer
         $string = $this->toAscii($string);
         $string = mb_strtolower($string);
         /** @var string $string */
-        $string = preg_replace('/[^a-z0-9]+/i', $separator, $string);
+        $string = \Safe\preg_replace('/[^a-z0-9]+/i', $separator, $string);
         $string = trim($string, $separator);
         if (self::DEFAULT_ENDING !== $ending) {
             $string = $this->createEnding($string, $ending, $separator);
@@ -128,18 +136,16 @@ class Canonicalizer
         $string = str_replace(self::TRANSLITERATION_MAP[0], self::TRANSLITERATION_MAP[1], $string);
         // get rid of some unicode special chars like tabs etc.
         /** @var string $string */
-        $string = preg_replace(self::UNICODE_SPECIAL_CHAR_BLACKLIST, '', $string);
+        $string = \Safe\preg_replace(self::UNICODE_SPECIAL_CHAR_BLACKLIST, '', $string);
         // get rid of some special chars
         $string = str_replace(self::SPECIAL_CHAR_BLACKLIST, '', $string);
         // transliterate to ASCII/Win-1250
         if (ICONV_IMPL === 'glibc') {
-            /** @var string $string */
-            $string = iconv('UTF-8', 'WINDOWS-1250//TRANSLIT//IGNORE', $string);
+            $string = \Safe\iconv('UTF-8', 'WINDOWS-1250//TRANSLIT//IGNORE', $string);
             $string = strtr($string, ...self::GLIBC_W1250_CHAR_MAP);
             return $string;
         }
-        /** @var string $string */
-        $string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
+        $string = \Safe\iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
         // get rid of some special chars (again, since iconv implementations other than glibc might put some back in)
         $string = str_replace(self::SPECIAL_CHAR_BLACKLIST, '', $string);
         return $string;
@@ -150,7 +156,8 @@ class Canonicalizer
         $ending = $separator . trim($ending, $separator);
         $maxLength = $this->maxLength - mb_strlen($ending);
         if (mb_strlen($string) > $maxLength) {
-            $string = trim(mb_substr($string, 0, $maxLength), $separator);
+            $substring = mb_substr($string, 0, $maxLength);
+            $string = trim($substring, $separator);
         }
         return sprintf('%s%s', $string, $ending);
     }
