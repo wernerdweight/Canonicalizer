@@ -16,10 +16,10 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0"
+        "php": ">=8.1"
     },
     "require-dev": {
-        "wernerdweight/cs": "^1.4"
+        "wernerdweight/cs": "^3.0"
     },
     "suggest": {},
     "autoload": {
@@ -29,12 +29,15 @@
     },
     "target-dir": "WernerDweight/Canonicalizer",
     "scripts": {
-        "fix": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/src/ecs.yaml --fix",
+        "fix": "ecs check ./Canonicalizer.php ./Tests/ --config ecs.php --fix",
         "phpstan": "phpstan analyse ./Canonicalizer.php ./Tests/ --level max",
         "phpmd": "phpmd ./Canonicalizer.php text vendor/wernerdweight/cs/phpmd.xml",
-        "ecs": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/src/ecs.yaml",
-        "ecs-fix": "ecs check ./Canonicalizer.php ./Tests/ --config vendor/wernerdweight/cs/src/ecs.yaml --fix",
-        "phpunit": "phpunit",
-        "victor": "victor"
+        "ecs": "ecs check ./Canonicalizer.php ./Tests/ --config ecs.php",
+        "phpunit": "phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
